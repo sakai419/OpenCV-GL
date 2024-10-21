@@ -4,7 +4,8 @@
 
 using namespace std;
 
-const enum State {
+enum State
+{
     STATE_HOME,
     STATE_STAGE
 };

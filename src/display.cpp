@@ -4,8 +4,19 @@
 #include <cmath>
 
 static void draw_pyramid();
+static void drawTextOverlay(string text);
+static void renderBitmapString(float x, float y, void *font, string text);
 
-void display()
+void display_home()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    drawTextOverlay("HOME");
+
+    glutSwapBuffers();
+}
+
+void display_stage()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -90,4 +101,34 @@ static void draw_pyramid()
     glVertex3dv(pointC);
     glVertex3dv(pointD);
     glEnd();
+}
+
+static void drawTextOverlay(string text)
+{
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();                                                       // 現在の投影行列を保存
+    glLoadIdentity();                                                     // 単位行列にリセット
+    gluOrtho2D(-WINDOW_X / 2, WINDOW_X / 2, -WINDOW_Y / 2, WINDOW_Y / 2); // 画面サイズに合わせて正投影を設定
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();   // 現在のモデルビュー行列を保存
+    glLoadIdentity(); // 単位行列にリセット
+
+    // 文字を表示する座標（画面の左上からのオフセット）
+    glColor3f(1.0, 1.0, 1.0); // 白色で描画
+    renderBitmapString(0, 0, GLUT_BITMAP_HELVETICA_18, text);
+
+    glPopMatrix(); // モデルビュー行列を元に戻す
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix(); // 投影行列を元に戻す
+    glMatrixMode(GL_MODELVIEW);
+}
+
+static void renderBitmapString(float x, float y, void *font, const string text)
+{
+    glRasterPos2f(x, y); // 文字の描画開始位置を指定
+    for (int i = 0; i < text.size(); i++)
+    {
+        glutBitmapCharacter(font, text[i]);
+    }
 }

@@ -2,7 +2,12 @@
 #include "global.hpp"
 #include <GLUT/glut.h>
 
-void motion(int x, int y)
+void motion_home(int x, int y)
+{
+    glutPostRedisplay();
+}
+
+void motion_stage(int x, int y)
 {
     static int px = -1, py = -1;
     if (g_isLeftButtonOn == true)

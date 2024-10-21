@@ -2,7 +2,19 @@
 #include "global.hpp"
 #include <GLUT/glut.h>
 
-void mouse(int button, int state, int x, int y)
+static void mouse_default(int button, int state, int x, int y);
+
+void mouse_home(int button, int state, int x, int y)
+{
+    mouse_default(button, state, x, y);
+}
+
+void mouse_stage(int button, int state, int x, int y)
+{
+    mouse_default(button, state, x, y);
+}
+
+static void mouse_default(int button, int state, int x, int y)
 {
     if (button == GLUT_LEFT_BUTTON)
     {

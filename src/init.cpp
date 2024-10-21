@@ -1,6 +1,7 @@
 #include "global.hpp"
 #include "init.hpp"
 #include "callback.hpp"
+#include "state.hpp"
 #include <GLUT/glut.h>
 
 double g_angle1 = 0.0;
@@ -8,6 +9,7 @@ double g_angle2 = 0.0;
 double g_distance = 5.0;
 bool g_isLeftButtonOn = false;
 bool g_isRightButtonOn = false;
+State g_state = STATE_HOME;
 
 void init_GL(int argc, char **argv)
 {
@@ -20,13 +22,5 @@ void init_GL(int argc, char **argv)
 void init()
 {
     glClearColor(0.0, 0.0, 0.0, 0.0);
-}
-
-void set_callback_functions()
-{
-    glutDisplayFunc(display);
-    glutKeyboardFunc(keyboard);
-    glutMouseFunc(mouse);
-    glutMotionFunc(motion);
-    glutPassiveMotionFunc(motion);
+    change_state(STATE_HOME);
 }
