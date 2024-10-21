@@ -2,6 +2,11 @@
 #include "global.hpp"
 #include <GLUT/glut.h>
 #include <cmath>
+#include <chrono>
+#include <thread>
+
+using namespace std;
+using namespace std::chrono;
 
 static void draw_pyramid();
 static void drawTextOverlay(int x, int y, string text);
@@ -52,9 +57,6 @@ void display_stage()
     glTranslatef(0.0, -2.0, 0.0);
     draw_pyramid();
     glPopMatrix();
-
-    time_t now = time(NULL);
-    time_t remaining_time = 5 - (now - g_time);
 
     drawTextOverlay(-WINDOW_X / 2 + 10, WINDOW_Y / 2 - 20, to_string(remaining_time));
 

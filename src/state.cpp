@@ -3,6 +3,8 @@
 #include "global.hpp"
 #include <GLUT/glut.h>
 
+using namespace std::chrono;
+
 static void set_home_callback();
 static void set_stage_callback();
 
@@ -15,7 +17,8 @@ void change_state(State state)
         set_home_callback();
         break;
     case STATE_STAGE:
-        g_time = time(NULL);
+        remaining_time = 5.0;
+        g_time = high_resolution_clock::now();
         set_stage_callback();
         break;
     default:

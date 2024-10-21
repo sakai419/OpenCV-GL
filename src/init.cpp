@@ -4,13 +4,16 @@
 #include "state.hpp"
 #include <GLUT/glut.h>
 
+using namespace std::chrono;
+
 double g_angle1 = 0.0;
 double g_angle2 = 0.0;
 double g_distance = 30.0;
+double remaining_time = 0.0;
 bool g_isLeftButtonOn = false;
 bool g_isRightButtonOn = false;
 State g_state = STATE_HOME;
-time_t g_time = time(NULL);
+auto g_time = high_resolution_clock::now();
 
 void init_GL(int argc, char **argv)
 {
