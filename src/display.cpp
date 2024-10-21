@@ -9,14 +9,16 @@ using namespace std;
 using namespace std::chrono;
 
 static void draw_pyramid();
-static void drawTextOverlay(int x, int y, string text);
-static void renderBitmapString(float x, float y, void *font, string text);
+static void drawTextOverlay(string text, int x, int y, float scale);
+static void renderStrokeText(string text, float x, float y, float scale);
 
 void display_home()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    drawTextOverlay(0, 10, "HOME");
+    drawTextOverlay("Welcome to the game", -400, 100, 0.5);
+    drawTextOverlay("Press 's' to start", -200, 0, 0.3);
+    drawTextOverlay("Press 'q' to quit", -200, -100, 0.3);
 
     glutSwapBuffers();
 }
@@ -58,7 +60,7 @@ void display_stage()
     draw_pyramid();
     glPopMatrix();
 
-    drawTextOverlay(-WINDOW_X / 2 + 10, WINDOW_Y / 2 - 20, to_string(remaining_time));
+    drawTextOverlay(to_string(remaining_time), -WINDOW_X / 2 + 10, WINDOW_Y / 2 - 50, 0.3);
 
     glFlush();
     glDisable(GL_DEPTH_TEST);
@@ -69,7 +71,7 @@ void display_answer()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    drawTextOverlay(0, 10, "ANSWER");
+    drawTextOverlay("Select the correct shape", -400, 100, 0.5);
 
     glutSwapBuffers();
 }
@@ -119,7 +121,7 @@ static void draw_pyramid()
     glEnd();
 }
 
-static void drawTextOverlay(int x, int y, string text)
+static void drawTextOverlay(string text, int x, int y, float scale)
 {
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();                                                       // 現在の投影行列を保存
@@ -132,7 +134,7 @@ static void drawTextOverlay(int x, int y, string text)
 
     // 文字を表示する座標（画面の左上からのオフセット）
     glColor3f(1.0, 1.0, 1.0); // 白色で描画
-    renderBitmapString(x, y, GLUT_BITMAP_HELVETICA_18, text);
+    renderStrokeText(text, x, y, scale);
 
     glPopMatrix(); // モデルビュー行列を元に戻す
     glMatrixMode(GL_PROJECTION);
@@ -140,11 +142,16 @@ static void drawTextOverlay(int x, int y, string text)
     glMatrixMode(GL_MODELVIEW);
 }
 
-static void renderBitmapString(float x, float y, void *font, const string text)
+static void renderStrokeText(string text, float x, float y, float scale)
 {
-    glRasterPos2f(x, y); // 文字の描画開始位置を指定
+    glPushMatrix();
+    glTranslatef(x, y, 0.0f);      // 表示位置を設定
+    glScalef(scale, scale, scale); // フォントのサイズを変更
+
     for (int i = 0; i < text.size(); i++)
     {
-        glutBitmapCharacter(font, text[i]);
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, text[i]);
     }
+
+    glPopMatrix();
 }
