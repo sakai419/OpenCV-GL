@@ -4,14 +4,14 @@
 #include <cmath>
 
 static void draw_pyramid();
-static void drawTextOverlay(string text);
+static void drawTextOverlay(int x, int y, string text);
 static void renderBitmapString(float x, float y, void *font, string text);
 
 void display_home()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    drawTextOverlay("HOME");
+    drawTextOverlay(0, 10, "HOME");
 
     glutSwapBuffers();
 }
@@ -52,6 +52,11 @@ void display_stage()
     glTranslatef(0.0, -2.0, 0.0);
     draw_pyramid();
     glPopMatrix();
+
+    time_t now = time(NULL);
+    time_t remaining_time = 5 - (now - g_time);
+
+    drawTextOverlay(-WINDOW_X / 2 + 10, WINDOW_Y / 2 - 20, to_string(remaining_time));
 
     glFlush();
     glDisable(GL_DEPTH_TEST);
@@ -103,7 +108,7 @@ static void draw_pyramid()
     glEnd();
 }
 
-static void drawTextOverlay(string text)
+static void drawTextOverlay(int x, int y, string text)
 {
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();                                                       // 現在の投影行列を保存
@@ -116,7 +121,7 @@ static void drawTextOverlay(string text)
 
     // 文字を表示する座標（画面の左上からのオフセット）
     glColor3f(1.0, 1.0, 1.0); // 白色で描画
-    renderBitmapString(0, 0, GLUT_BITMAP_HELVETICA_18, text);
+    renderBitmapString(x, y, GLUT_BITMAP_HELVETICA_18, text);
 
     glPopMatrix(); // モデルビュー行列を元に戻す
     glMatrixMode(GL_PROJECTION);

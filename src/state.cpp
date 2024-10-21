@@ -15,6 +15,7 @@ void change_state(State state)
         set_home_callback();
         break;
     case STATE_STAGE:
+        g_time = time(NULL);
         set_stage_callback();
         break;
     default:
@@ -29,6 +30,7 @@ static void set_home_callback()
     glutMouseFunc(mouse_home);
     glutMotionFunc(motion_home);
     glutPassiveMotionFunc(motion_home);
+    glutIdleFunc(idle_home);
 }
 
 static void set_stage_callback()
@@ -38,4 +40,5 @@ static void set_stage_callback()
     glutMouseFunc(mouse_stage);
     glutMotionFunc(motion_stage);
     glutPassiveMotionFunc(motion_stage);
+    glutIdleFunc(idle_stage);
 }

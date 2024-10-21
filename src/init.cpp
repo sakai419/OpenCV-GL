@@ -6,10 +6,11 @@
 
 double g_angle1 = 0.0;
 double g_angle2 = 0.0;
-double g_distance = 5.0;
+double g_distance = 30.0;
 bool g_isLeftButtonOn = false;
 bool g_isRightButtonOn = false;
 State g_state = STATE_HOME;
+time_t g_time = time(NULL);
 
 void init_GL(int argc, char **argv)
 {
