@@ -34,3 +34,21 @@ void keyboard_stage(unsigned char key, int x, int y)
         break;
     }
 }
+
+void keyboard_answer(unsigned char key, int x, int y)
+{
+    switch (key)
+    {
+    case 'q':
+    case 'Q':
+    case '\033':
+        exit(0);
+        break;
+    case 'h':
+    case 'H':
+        change_state(STATE_HOME);
+        break;
+    default:
+        break;
+    }
+}

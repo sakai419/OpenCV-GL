@@ -18,7 +18,12 @@ void idle_stage()
 
     if (remaining_time < 0.0)
     {
-        change_state(STATE_HOME);
+        change_state(STATE_ANSWER);
     }
+    glutPostRedisplay();
+}
+
+void idle_answer()
+{
     glutPostRedisplay();
 }

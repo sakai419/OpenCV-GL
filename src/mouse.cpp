@@ -14,6 +14,11 @@ void mouse_stage(int button, int state, int x, int y)
     mouse_default(button, state, x, y);
 }
 
+void mouse_answer(int button, int state, int x, int y)
+{
+    mouse_default(button, state, x, y);
+}
+
 static void mouse_default(int button, int state, int x, int y)
 {
     if (button == GLUT_LEFT_BUTTON)

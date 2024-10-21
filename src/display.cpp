@@ -65,6 +65,15 @@ void display_stage()
     glutSwapBuffers();
 }
 
+void display_answer()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    drawTextOverlay(0, 10, "ANSWER");
+
+    glutSwapBuffers();
+}
+
 static void draw_pyramid()
 {
     GLdouble pointO[] = {0.0, 1.0, 0.0};

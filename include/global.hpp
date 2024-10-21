@@ -8,7 +8,8 @@ using namespace std::chrono;
 enum State
 {
     STATE_HOME,
-    STATE_STAGE
+    STATE_STAGE,
+    STATE_ANSWER
 };
 
 constexpr const int WINDOW_X = 1000;
