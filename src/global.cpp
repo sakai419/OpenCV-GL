@@ -14,5 +14,5 @@ State g_state = STATE_HOME;
 auto g_time = high_resolution_clock::now();
 GLfloat light_position[3] = {0.0, 0.0, 0.0};
 GLfloat object_position[3] = {0.0, 0.0, 0.0};
-GLuint textureIDs[10];
-cv::Mat images[10];
+GLuint textureIDs[100];
+cv::Mat images[100];

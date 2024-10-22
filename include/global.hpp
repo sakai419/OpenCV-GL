@@ -37,4 +37,4 @@ extern steady_clock::time_point g_time;
 extern GLfloat light_position[3];
 extern GLfloat object_position[3];
 extern GLuint textureIDs[100];
-extern Mat images[1000];
+extern Mat images[100];
