@@ -50,7 +50,7 @@ void display_stage()
 
     glPushMatrix();
     glTranslatef(object_position[0], object_position[1], object_position[2]);
-    glColor3f(1.0, 1.0, 1.0);
+    glColor3f(0.0, 0.0, 0.0);
     draw_random(g_shape);
     glPopMatrix();
 
