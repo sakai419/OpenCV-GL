@@ -2,9 +2,11 @@
 
 #include <string>
 #include <GLUT/glut.h>
+#include <opencv2/core/core.hpp>
 
 using namespace std;
 using namespace std::chrono;
+using namespace cv;
 
 enum State
 {
@@ -14,10 +16,13 @@ enum State
     STATE_RESULT
 };
 
-constexpr const int WINDOW_X = 500;
-constexpr const int WINDOW_Y = 500;
+constexpr const int WINDOW_X = 1000;
+constexpr const int WINDOW_Y = 1000;
 constexpr const char *WINDOWNAME = "GAME";
 constexpr const double TIME_LIMIT = 10.0;
+constexpr const int HOME_TEXTURE_ID = 0;
+constexpr const int ANSWER_TEXTURE_ID = 1;
+constexpr const int RESULT_TEXTURE_ID = 2;
 
 extern int g_shape;
 extern double g_angle1;
@@ -31,3 +36,5 @@ extern State g_state;
 extern steady_clock::time_point g_time;
 extern GLfloat light_position[3];
 extern GLfloat object_position[3];
+extern GLuint textureIDs[10];
+extern Mat images[10];

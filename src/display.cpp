@@ -8,8 +8,21 @@
 using namespace std;
 using namespace std::chrono;
 
+const string shape_list[] = {
+    "Tetrahedron",
+    "Cube",
+    "Octahedron",
+    "Dodecahedron",
+    "Icosahedron",
+    "Sphere",
+    "Cone",
+    "Torus",
+    "Teapot",
+};
+
 static void drawTextOverlay(string text, int x, int y, float scale);
 static void renderStrokeText(string text, float x, float y, float scale);
+static void renderTextureFullScreen(int texture_id);
 static void draw_random(int rand);
 
 void display_home()
@@ -69,10 +82,6 @@ void display_stage()
 
 void display_answer()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    drawTextOverlay("Select the correct shape", -400, 100, 0.5);
-
     glutSwapBuffers();
 }
 
@@ -87,11 +96,11 @@ void display_result()
     else
     {
         drawTextOverlay("Incorrect!", -400, 100, 0.5);
-        drawTextOverlay("The correct answer is " + to_string(g_shape), -400, 0, 0.3);
+        drawTextOverlay("The correct answer is " + shape_list[g_shape], -400, 0, 0.3);
     }
 
-    drawTextOverlay("Press 'h' to home", -200, 0, 0.3);
-    drawTextOverlay("Press 'q' to quit", -200, -100, 0.3);
+    drawTextOverlay("Press 'h' to home", -200, -100, 0.3);
+    drawTextOverlay("Press 'q' to quit", -200, -200, 0.3);
 
     glutSwapBuffers();
 }
@@ -139,25 +148,25 @@ static void draw_random(int rand)
     switch (rand)
     {
     case 0:
-        glutSolidCone(1.0, 2.0, 20, 20);
+        glutSolidTetrahedron();
         break;
     case 1:
         glutSolidCube(1.0);
         break;
     case 2:
-        glutSolidDodecahedron();
+        glutSolidOctahedron();
         break;
     case 3:
-        glutSolidIcosahedron();
+        glutSolidDodecahedron();
         break;
     case 4:
-        glutSolidOctahedron();
+        glutSolidIcosahedron();
         break;
     case 5:
         glutSolidSphere(1.0, 20, 20);
         break;
     case 6:
-        glutSolidTetrahedron();
+        glutSolidCone(1.0, 2.0, 20, 20);
         break;
     case 7:
         glutSolidTorus(0.5, 1.0, 20, 20);

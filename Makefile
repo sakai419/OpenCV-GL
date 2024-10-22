@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS =-std=c++17 -Wall -DGL_SILENCE_DEPRECATION
-LDLIBS = -framework OpenGL -framework GLUT
+CXXFLAGS=`pkg-config opencv4 --cflags` -std=c++17 -O0 -DGL_SILENCE_DEPRECATION
+LDLIBS=-framework OpenGL -framework GLUT `pkg-config opencv4 --libs`
 
 TARGET = bin/game
 SRCS = $(wildcard src/*.cpp)
