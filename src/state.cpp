@@ -9,6 +9,7 @@ using namespace std::chrono;
 static void set_home_callback();
 static void set_stage_callback();
 static void set_answer_callback();
+static void set_result_callback();
 static float getRandomFloat(float min, float max);
 static void init_position(GLfloat (*position)[3]);
 
@@ -30,6 +31,10 @@ void change_state(State state)
         break;
     case STATE_ANSWER:
         set_answer_callback();
+        break;
+    case STATE_RESULT:
+        set_result_callback();
+        break;
     default:
         break;
     }
@@ -63,6 +68,16 @@ static void set_answer_callback()
     glutMotionFunc(motion_answer);
     glutPassiveMotionFunc(motion_answer);
     glutIdleFunc(idle_answer);
+}
+
+static void set_result_callback()
+{
+    glutDisplayFunc(display_result);
+    glutKeyboardFunc(keyboard_result);
+    glutMouseFunc(mouse_result);
+    glutMotionFunc(motion_result);
+    glutPassiveMotionFunc(motion_result);
+    glutIdleFunc(idle_result);
 }
 
 float getRandomFloat(float min, float max)

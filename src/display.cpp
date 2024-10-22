@@ -76,6 +76,26 @@ void display_answer()
     glutSwapBuffers();
 }
 
+void display_result()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    if (g_isCorrect)
+    {
+        drawTextOverlay("Correct!", -400, 100, 0.5);
+    }
+    else
+    {
+        drawTextOverlay("Incorrect!", -400, 100, 0.5);
+        drawTextOverlay("The correct answer is " + to_string(g_shape), -400, 0, 0.3);
+    }
+
+    drawTextOverlay("Press 'h' to home", -200, 0, 0.3);
+    drawTextOverlay("Press 'q' to quit", -200, -100, 0.3);
+
+    glutSwapBuffers();
+}
+
 static void drawTextOverlay(string text, int x, int y, float scale)
 {
     x = (int)x * ((double)WINDOW_X / 1000);

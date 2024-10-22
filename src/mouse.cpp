@@ -19,6 +19,11 @@ void mouse_answer(int button, int state, int x, int y)
     button_func(button, state);
 }
 
+void mouse_result(int button, int state, int x, int y)
+{
+    button_func(button, state);
+}
+
 static void button_func(int button, int state)
 {
     if (button == GLUT_LEFT_BUTTON)

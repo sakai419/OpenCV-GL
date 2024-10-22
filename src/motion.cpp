@@ -41,3 +41,8 @@ void motion_answer(int x, int y)
 {
     glutPostRedisplay();
 }
+
+void motion_result(int x, int y)
+{
+    glutPostRedisplay();
+}

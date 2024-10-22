@@ -27,3 +27,8 @@ void idle_answer()
 {
     glutPostRedisplay();
 }
+
+void idle_result()
+{
+    glutPostRedisplay();
+}

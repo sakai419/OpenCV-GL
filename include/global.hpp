@@ -10,7 +10,8 @@ enum State
 {
     STATE_HOME,
     STATE_STAGE,
-    STATE_ANSWER
+    STATE_ANSWER,
+    STATE_RESULT
 };
 
 constexpr const int WINDOW_X = 500;
@@ -25,6 +26,7 @@ extern double g_distance;
 extern double remaining_time;
 extern bool g_isLeftButtonOn;
 extern bool g_isRightButtonOn;
+extern bool g_isCorrect;
 extern State g_state;
 extern steady_clock::time_point g_time;
 extern GLfloat light_position[3];

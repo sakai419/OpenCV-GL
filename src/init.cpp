@@ -13,6 +13,7 @@ double g_distance = 30.0;
 double remaining_time = 0.0;
 bool g_isLeftButtonOn = false;
 bool g_isRightButtonOn = false;
+bool g_isCorrect = false;
 State g_state = STATE_HOME;
 auto g_time = high_resolution_clock::now();
 GLfloat light_position[3] = {0.0, 0.0, 0.0};
