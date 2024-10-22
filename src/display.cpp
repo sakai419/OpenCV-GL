@@ -8,9 +8,9 @@
 using namespace std;
 using namespace std::chrono;
 
-static void draw_pyramid();
 static void drawTextOverlay(string text, int x, int y, float scale);
 static void renderStrokeText(string text, float x, float y, float scale);
+static void draw_random(int rand);
 
 void display_home()
 {
@@ -49,18 +49,18 @@ void display_stage()
     glEnable(GL_DEPTH_TEST);
 
     glPushMatrix();
-    glRotatef(-30, 0.0, 0.0, 1.0);
-    glTranslatef(-1.0, 3.0, 0.0);
-    glColor3f(0.0, 0.0, 0.0);
-    glutWireTeapot(1.0);
+    glTranslatef(object_position[0], object_position[1], object_position[2]);
+    glColor3f(1.0, 1.0, 1.0);
+    draw_random(g_shape);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(0.0, -2.0, 0.0);
-    draw_pyramid();
+    glTranslatef(light_position[0], light_position[1], light_position[2]);
+    glColor3f(1.0, 1.0, 1.0);
+    glutSolidSphere(1.0, 20, 20);
     glPopMatrix();
 
-    drawTextOverlay(to_string(remaining_time), -WINDOW_X / 2 + 10, WINDOW_Y / 2 - 50, 0.3);
+    drawTextOverlay(to_string(remaining_time), -490, 450, 0.3);
 
     glFlush();
     glDisable(GL_DEPTH_TEST);
@@ -76,53 +76,11 @@ void display_answer()
     glutSwapBuffers();
 }
 
-static void draw_pyramid()
-{
-    GLdouble pointO[] = {0.0, 1.0, 0.0};
-    GLdouble pointA[] = {1.5, -1.0, 1.5};
-    GLdouble pointB[] = {-1.5, -1.0, 1.5};
-    GLdouble pointC[] = {-1.5, -1.0, -1.5};
-    GLdouble pointD[] = {1.5, -1.0, -1.5};
-
-    glColor3d(1.0, 0.0, 0.0);
-    glBegin(GL_TRIANGLES);
-    glVertex3dv(pointO);
-    glVertex3dv(pointA);
-    glVertex3dv(pointB);
-    glEnd();
-
-    glColor3d(1.0, 1.0, 0.0);
-    glBegin(GL_TRIANGLES);
-    glVertex3dv(pointO);
-    glVertex3dv(pointB);
-    glVertex3dv(pointC);
-    glEnd();
-
-    glColor3d(0.0, 1.0, 1.0);
-    glBegin(GL_TRIANGLES);
-    glVertex3dv(pointO);
-    glVertex3dv(pointC);
-    glVertex3dv(pointD);
-    glEnd();
-
-    glColor3d(1.0, 0.0, 1.0);
-    glBegin(GL_TRIANGLES);
-    glVertex3dv(pointO);
-    glVertex3dv(pointD);
-    glVertex3dv(pointA);
-    glEnd();
-
-    glColor3d(1.0, 1.0, 1.0);
-    glBegin(GL_POLYGON);
-    glVertex3dv(pointA);
-    glVertex3dv(pointB);
-    glVertex3dv(pointC);
-    glVertex3dv(pointD);
-    glEnd();
-}
-
 static void drawTextOverlay(string text, int x, int y, float scale)
 {
+    x = (int)x * ((double)WINDOW_X / 1000);
+    y = (int)y * ((double)WINDOW_X / 1000);
+    scale *= ((double)WINDOW_X / 1000);
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();                                                       // 現在の投影行列を保存
     glLoadIdentity();                                                     // 単位行列にリセット
@@ -154,4 +112,40 @@ static void renderStrokeText(string text, float x, float y, float scale)
     }
 
     glPopMatrix();
+}
+
+static void draw_random(int rand)
+{
+    switch (rand)
+    {
+    case 0:
+        glutSolidCone(1.0, 2.0, 20, 20);
+        break;
+    case 1:
+        glutSolidCube(1.0);
+        break;
+    case 2:
+        glutSolidDodecahedron();
+        break;
+    case 3:
+        glutSolidIcosahedron();
+        break;
+    case 4:
+        glutSolidOctahedron();
+        break;
+    case 5:
+        glutSolidSphere(1.0, 20, 20);
+        break;
+    case 6:
+        glutSolidTetrahedron();
+        break;
+    case 7:
+        glutSolidTorus(0.5, 1.0, 20, 20);
+        break;
+    case 8:
+        glutSolidTeapot(1.0);
+        break;
+    default:
+        break;
+    }
 }

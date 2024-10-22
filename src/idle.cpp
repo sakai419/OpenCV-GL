@@ -14,7 +14,7 @@ void idle_stage()
 {
     auto now = high_resolution_clock::now();
     auto elapsed = duration<double>(now - g_time).count();
-    remaining_time = 5.0 - elapsed;
+    remaining_time = TIME_LIMIT - elapsed;
 
     if (remaining_time < 0.0)
     {
