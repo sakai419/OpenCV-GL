@@ -8,6 +8,15 @@
 using namespace std;
 using namespace std::chrono;
 
+const float white[] = {1.0, 1.0, 1.0};
+const float yellow[] = {1.0, 1.0, 0.0};
+
+const string dif_list[] = {
+    "Easy",
+    "Normal",
+    "Hard",
+};
+
 const string shape_list[] = {
     "Tetrahedron",
     "Cube",
@@ -20,18 +29,18 @@ const string shape_list[] = {
     "Teapot",
 };
 
-static void drawTextOverlay(string text, int x, int y, float scale);
+static void drawTextOverlay(string text, int x, int y, float scale, const float color[3]);
 static void renderStrokeText(string text, float x, float y, float scale);
-static void renderTextureFullScreen(int texture_id);
-static void draw_random(int rand);
+
+static void draw_difficulty();
+static void draw_random_shape(int rand);
 
 void display_home()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    drawTextOverlay("Welcome to the game", -400, 100, 0.5);
-    drawTextOverlay("Press 's' to start", -200, 0, 0.3);
-    drawTextOverlay("Press 'q' to quit", -200, -100, 0.3);
+    drawTextOverlay("Choose difficulty", -400, 100, 0.5, white);
+    draw_difficulty();
 
     glutSwapBuffers();
 }
@@ -64,16 +73,29 @@ void display_stage()
     glPushMatrix();
     glTranslatef(object_position[0], object_position[1], object_position[2]);
     glColor3f(0.0, 0.0, 0.0);
-    draw_random(g_shape);
+    draw_random_shape(g_shape);
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(light_position[0], light_position[1], light_position[2]);
     glColor3f(1.0, 1.0, 1.0);
-    glutSolidSphere(1.0, 20, 20);
+    switch (g_difficulty)
+    {
+    case EASY:
+        glutSolidSphere(0.6, 20, 20);
+        break;
+    case NORMAL:
+        glutSolidSphere(0.5, 20, 20);
+        break;
+    case HARD:
+        glutSolidSphere(0.4, 20, 20);
+        break;
+    default:
+        break;
+    }
     glPopMatrix();
 
-    drawTextOverlay(to_string(remaining_time), -490, 450, 0.3);
+    drawTextOverlay(to_string(remaining_time), -490, 450, 0.3, white);
 
     glFlush();
     glDisable(GL_DEPTH_TEST);
@@ -91,21 +113,21 @@ void display_result()
 
     if (g_isCorrect)
     {
-        drawTextOverlay("Correct!", -400, 100, 0.5);
+        drawTextOverlay("Correct!", -400, 100, 0.5, white);
     }
     else
     {
-        drawTextOverlay("Incorrect!", -400, 100, 0.5);
-        drawTextOverlay("The correct answer is " + shape_list[g_shape], -400, 0, 0.3);
+        drawTextOverlay("Incorrect!", -400, 100, 0.5, white);
+        drawTextOverlay("The correct answer is " + shape_list[g_shape], -400, 0, 0.3, white);
     }
 
-    drawTextOverlay("Press 'h' to home", -200, -100, 0.3);
-    drawTextOverlay("Press 'q' to quit", -200, -200, 0.3);
+    drawTextOverlay("Press 'h' to home", -200, -100, 0.3, white);
+    drawTextOverlay("Press 'q' to quit", -200, -200, 0.3, white);
 
     glutSwapBuffers();
 }
 
-static void drawTextOverlay(string text, int x, int y, float scale)
+static void drawTextOverlay(string text, int x, int y, float scale, const float color[3])
 {
     x = (int)x * ((double)WINDOW_X / 1000);
     y = (int)y * ((double)WINDOW_X / 1000);
@@ -120,7 +142,7 @@ static void drawTextOverlay(string text, int x, int y, float scale)
     glLoadIdentity(); // 単位行列にリセット
 
     // 文字を表示する座標（画面の左上からのオフセット）
-    glColor3f(1.0, 1.0, 1.0); // 白色で描画
+    glColor3f(color[0], color[1], color[2]); // 白色で描画
     renderStrokeText(text, x, y, scale);
 
     glPopMatrix(); // モデルビュー行列を元に戻す
@@ -143,7 +165,22 @@ static void renderStrokeText(string text, float x, float y, float scale)
     glPopMatrix();
 }
 
-static void draw_random(int rand)
+static void draw_difficulty()
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        if (i == g_difficulty % 3)
+        {
+            drawTextOverlay(dif_list[i] + " <-", -400, -100 * i, g_highlight, yellow);
+        }
+        else
+        {
+            drawTextOverlay(dif_list[i], -400, -100 * i, 0.3, white);
+        }
+    }
+}
+
+static void draw_random_shape(int rand)
 {
     switch (rand)
     {

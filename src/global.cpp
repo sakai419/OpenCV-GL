@@ -3,6 +3,8 @@
 #include <opencv2/core/core.hpp>
 
 int g_shape = 0;
+long g_difficulty = 1000000;
+double g_highlight = 0.5;
 double g_angle1 = 0.0;
 double g_angle2 = 0.0;
 double g_distance = 30.0;

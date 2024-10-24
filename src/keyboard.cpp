@@ -12,8 +12,8 @@ void keyboard_home(unsigned char key, int x, int y)
     case '\033':
         exit(0);
         break;
-    case 's':
-    case 'S':
+    case 10:
+    case 13:
         change_state(STATE_STAGE);
         break;
     default:

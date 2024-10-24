@@ -11,7 +11,8 @@ static void set_stage_callback();
 static void set_answer_callback();
 static void set_result_callback();
 static float getRandomFloat(float min, float max);
-static void init_position(GLfloat (*position)[3]);
+static void init_light_position(GLfloat (*position)[3]);
+static void init_object_position(GLfloat (*position)[3]);
 
 void change_state(State state)
 {
@@ -19,14 +20,15 @@ void change_state(State state)
     switch (state)
     {
     case STATE_HOME:
+        g_difficulty = EASY;
         set_home_callback();
         break;
     case STATE_STAGE:
         remaining_time = 5.0;
         g_time = high_resolution_clock::now();
         g_shape = rand() % 9;
-        init_position(&object_position);
-        init_position(&light_position);
+        init_light_position(&light_position);
+        init_object_position(&object_position);
         set_stage_callback();
         break;
     case STATE_ANSWER:
@@ -48,6 +50,7 @@ static void set_home_callback()
     glutMotionFunc(motion_home);
     glutPassiveMotionFunc(motion_home);
     glutIdleFunc(idle_home);
+    glutSpecialFunc(special_home);
 }
 
 static void set_stage_callback()
@@ -93,10 +96,18 @@ float getRandomFloat(float min, float max)
     return dis(gen);
 }
 
-static void init_position(GLfloat (*position)[3])
+static void init_light_position(GLfloat (*position)[3])
 {
     for (int i = 0; i < 3; i++)
     {
         (*position)[i] = getRandomFloat(-3.0, 3.0);
+    }
+}
+
+static void init_object_position(GLfloat (*position)[3])
+{
+    for (int i = 0; i < 3; i++)
+    {
+        (*position)[i] = getRandomFloat(-2.0, 2.0);
     }
 }

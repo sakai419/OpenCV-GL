@@ -6,6 +6,7 @@ void keyboard_home(unsigned char key, int x, int y);
 void mouse_home(int button, int state, int x, int y);
 void motion_home(int x, int y);
 void idle_home();
+void special_home(int key, int x, int y);
 
 // callback functions of stage state
 void display_stage();

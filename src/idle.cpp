@@ -2,13 +2,17 @@
 #include "callback.hpp"
 #include "state.hpp"
 #include <GLUT/glut.h>
+#include <cmath>
+#include <chrono>
 
 using namespace std::chrono;
 
 static void renderTextureFullScreen(int texture_id);
+static double generateOscillatingValue();
 
 void idle_home()
 {
+    g_highlight = generateOscillatingValue();
     glutPostRedisplay();
 }
 
@@ -68,4 +72,18 @@ static void renderTextureFullScreen(int texture_id)
     glDisable(GL_TEXTURE_2D);
 
     glutSwapBuffers(); // ダブルバッファの切り替え
+}
+
+double generateOscillatingValue()
+{
+    // 現在の時刻をミリ秒単位で取得
+    auto now = steady_clock::now().time_since_epoch();
+    auto ms = duration_cast<milliseconds>(now).count();
+
+    // 1秒周期で -1 から 1 の範囲で変動する値を生成
+    double t = (ms % 1000) / 1000.0;             // 0 ~ 1 の間を繰り返す
+    double oscillation = std::sin(2 * M_PI * t); // sin(2πt)で周期を表現
+
+    // -1 ~ 1 の範囲を 0.4 ~ 0.6 の範囲にマッピング
+    return 0.5 + 0.1 * oscillation;
 }
