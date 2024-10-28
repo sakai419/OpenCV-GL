@@ -78,7 +78,7 @@ void display_stage()
 
     glPushMatrix();
     glTranslatef(light_position[0], light_position[1], light_position[2]);
-    glColor3f(1.0, 1.0, 1.0);
+    glColor3f(.0, .0, .0);
     switch (g_difficulty)
     {
     case EASY:
