@@ -41,14 +41,6 @@ void keyboard_answer(unsigned char key, int x, int y)
     {
     case 10:
     case 13:
-        if (g_choose == g_shape)
-        {
-            g_isCorrect = true;
-        }
-        else
-        {
-            g_isCorrect = false;
-        }
         change_state(STATE_RESULT);
         break;
     case 'q':

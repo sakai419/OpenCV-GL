@@ -72,7 +72,7 @@ void display_stage()
 
     glPushMatrix();
     glTranslatef(object_position[0], object_position[1], object_position[2]);
-    glColor3f(0.0, 0.0, 0.0);
+    glColor3f(1.0, 1.0, 1.0);
     draw_random_shape(g_shape);
     glPopMatrix();
 
@@ -88,7 +88,7 @@ void display_stage()
         glutSolidSphere(0.5, 20, 20);
         break;
     case HARD:
-        glutSolidSphere(0.5, 20, 20);
+        glutSolidSphere(0.4, 20, 20);
         break;
     default:
         break;

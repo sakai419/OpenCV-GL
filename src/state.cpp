@@ -35,6 +35,14 @@ void change_state(State state)
         set_answer_callback();
         break;
     case STATE_RESULT:
+        if (g_choose == g_shape)
+        {
+            g_isCorrect = true;
+        }
+        else
+        {
+            g_isCorrect = false;
+        }
         set_result_callback();
         break;
     default:
