@@ -25,6 +25,15 @@ void mouse_stage(int button, int state, int x, int y)
 
 void mouse_answer(int button, int state, int x, int y)
 {
+    const int x1 = 310, x2 = 500, x3 = 690;
+    const int y1 = 270, y2 = 430, y3 = 590;
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+    {
+        if (x > x1 - 95 && x < x3 + 95 && y > y1 - 80 && y < y2 + 80)
+        {
+            change_state(STATE_RESULT);
+        }
+    }
     button_func(button, state);
 }
 
