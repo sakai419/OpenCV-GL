@@ -1,13 +1,16 @@
 #include "global.hpp"
 #include "init.hpp"
 #include "callback.hpp"
+#include "state.hpp"
+#include <iostream>
 #include <GLUT/glut.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
-double g_angle1 = 0.0;
-double g_angle2 = 0.0;
-double g_distance = 5.0;
-bool g_isLeftButtonOn = false;
-bool g_isRightButtonOn = false;
+using namespace std;
+using namespace std::chrono;
+using namespace cv;
 
 void init_GL(int argc, char **argv)
 {
@@ -20,13 +23,5 @@ void init_GL(int argc, char **argv)
 void init()
 {
     glClearColor(0.0, 0.0, 0.0, 0.0);
-}
-
-void set_callback_functions()
-{
-    glutDisplayFunc(display);
-    glutKeyboardFunc(keyboard);
-    glutMouseFunc(mouse);
-    glutMotionFunc(motion);
-    glutPassiveMotionFunc(motion);
+    change_state(STATE_HOME);
 }

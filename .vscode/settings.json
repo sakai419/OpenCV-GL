@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"ios": "cpp",
+		"chrono": "cpp",
+		"string": "cpp",
+		"initializer_list": "cpp"
+	}
+}
