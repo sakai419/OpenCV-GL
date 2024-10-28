@@ -4,7 +4,6 @@
 			"name": "Mac",
 			"includePath": [
 				"${workspaceFolder}/**",
-				"${workspaceFolder}/OpenCV-GL/include",
 				"/opt/homebrew/opt/opencv/include",
 				"/opt/homebrew/include/freetype2",
 				"/opt/homebrew/Cellar/opencv/4.10.0_10/include/opencv4",
