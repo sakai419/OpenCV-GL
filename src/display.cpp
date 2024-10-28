@@ -88,7 +88,7 @@ void display_stage()
         glutSolidSphere(0.5, 20, 20);
         break;
     case HARD:
-        glutSolidSphere(0.4, 20, 20);
+        glutSolidSphere(0.5, 20, 20);
         break;
     default:
         break;
@@ -96,6 +96,11 @@ void display_stage()
     glPopMatrix();
 
     drawTextOverlay(to_string(remaining_time), -490, 450, 0.3, white);
+
+    if (remaining_time < 5.0 && g_difficulty == HARD)
+    {
+        drawTextOverlay("Object Moved!!!", -490, 400, 0.3, yellow);
+    }
 
     glFlush();
     glDisable(GL_DEPTH_TEST);

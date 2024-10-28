@@ -4,6 +4,21 @@
 
 void motion_home(int x, int y)
 {
+    const int easy = 400;
+    const int normal = 500;
+    const int hard = 600;
+    if (y > easy - 50 && y < easy + 50)
+    {
+        g_difficulty = EASY;
+    }
+    else if (y > normal - 50 && y < normal + 50)
+    {
+        g_difficulty = NORMAL;
+    }
+    else if (y > hard - 50 && y < hard + 50)
+    {
+        g_difficulty = HARD;
+    }
     glutPostRedisplay();
 }
 

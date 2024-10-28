@@ -1,12 +1,21 @@
 #include "callback.hpp"
 #include "global.hpp"
+#include "state.hpp"
 #include <GLUT/glut.h>
 
 static void button_func(int button, int state);
 
 void mouse_home(int button, int state, int x, int y)
 {
-    button_func(button, state);
+    const int difficulties[2] = {400, 600};
+
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+    {
+        if (y > difficulties[0] - 50 && y < difficulties[1] + 50)
+        {
+            change_state(STATE_STAGE);
+        }
+    }
 }
 
 void mouse_stage(int button, int state, int x, int y)
