@@ -39,16 +39,9 @@ void keyboard_answer(unsigned char key, int x, int y)
 {
     switch (key)
     {
-    case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-        if (key - '0' == g_shape)
+    case 10:
+    case 13:
+        if (g_choose == g_shape)
         {
             g_isCorrect = true;
         }

@@ -109,12 +109,51 @@ void display_stage()
 
 void display_answer()
 {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(30.0, 1.0, 0.1, 100);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0.0, 0.0, 30.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+
+    drawTextOverlay("Choose the correct shape", -400, 300, 0.5, white);
+    for (int i = 0; i < 9; ++i)
+    {
+        glPushMatrix();
+        glTranslatef(3 * (i % 3 - 1), 3 * (-i / 3 + 1), 0);
+        if (i == g_choose)
+        {
+            glScalef(g_highlight, g_highlight, g_highlight);
+
+            glColor3f(yellow[0], yellow[1], yellow[2]);
+        }
+        else
+        {
+            glColor3f(white[0], white[1], white[2]);
+        }
+        draw_random_shape(i + 9);
+        glPopMatrix();
+    }
+
+    glFlush();
+    glDisable(GL_DEPTH_TEST);
     glutSwapBuffers();
 }
 
 void display_result()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(30.0, 1.0, 0.1, 100);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0.0, 0.0, 30.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
 
     if (g_isCorrect)
     {
@@ -123,12 +162,16 @@ void display_result()
     else
     {
         drawTextOverlay("Incorrect!", -400, 100, 0.5, white);
-        drawTextOverlay("The correct answer is " + shape_list[g_shape], -400, 0, 0.3, white);
+        drawTextOverlay("The correct answer is ", -400, 0, 0.3, white);
+        glTranslatef(3, 0.5, 0);
+        draw_random_shape(g_shape + 9);
     }
 
     drawTextOverlay("Press 'h' to home", -200, -100, 0.3, white);
     drawTextOverlay("Press 'q' to quit", -200, -200, 0.3, white);
 
+    glFlush();
+    glDisable(GL_DEPTH_TEST);
     glutSwapBuffers();
 }
 
@@ -215,6 +258,33 @@ static void draw_random_shape(int rand)
         break;
     case 8:
         glutSolidTeapot(1.0);
+        break;
+    case 9:
+        glutWireTetrahedron();
+        break;
+    case 10:
+        glutWireCube(1.0);
+        break;
+    case 11:
+        glutWireOctahedron();
+        break;
+    case 12:
+        glutWireDodecahedron();
+        break;
+    case 13:
+        glutWireIcosahedron();
+        break;
+    case 14:
+        glutWireSphere(1.0, 20, 20);
+        break;
+    case 15:
+        glutWireCone(1.0, 2.0, 20, 20);
+        break;
+    case 16:
+        glutWireTorus(0.5, 1.0, 20, 20);
+        break;
+    case 17:
+        glutWireTeapot(1.0);
         break;
     default:
         break;

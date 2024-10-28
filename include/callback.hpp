@@ -21,6 +21,7 @@ void keyboard_answer(unsigned char key, int x, int y);
 void mouse_answer(int button, int state, int x, int y);
 void motion_answer(int x, int y);
 void idle_answer();
+void special_answer(int key, int x, int y);
 
 // callback functions of result state
 void display_result();

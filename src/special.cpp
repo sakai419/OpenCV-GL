@@ -3,6 +3,8 @@
 
 static void increment_difficulty();
 static void decrement_difficulty();
+static void increment_choose();
+static void decrement_choose();
 
 void special_home(int key, int x, int y)
 {
@@ -13,6 +15,22 @@ void special_home(int key, int x, int y)
         break;
     case GLUT_KEY_UP:
         decrement_difficulty();
+        break;
+    default:
+        break;
+    }
+    glutPostRedisplay();
+}
+
+void special_answer(int key, int x, int y)
+{
+    switch (key)
+    {
+    case GLUT_KEY_DOWN:
+        increment_choose();
+        break;
+    case GLUT_KEY_UP:
+        decrement_choose();
         break;
     default:
         break;
@@ -50,4 +68,14 @@ static void decrement_difficulty()
     {
         g_difficulty = NORMAL;
     }
+}
+
+static void increment_choose()
+{
+    g_choose = (g_choose + 1) % 9;
+}
+
+static void decrement_choose()
+{
+    g_choose = (g_choose + 8) % 9;
 }

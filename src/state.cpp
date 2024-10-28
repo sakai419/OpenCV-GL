@@ -71,6 +71,7 @@ static void set_answer_callback()
     glutMotionFunc(motion_answer);
     glutPassiveMotionFunc(motion_answer);
     glutIdleFunc(idle_answer);
+    glutSpecialFunc(special_answer);
 }
 
 static void set_result_callback()
